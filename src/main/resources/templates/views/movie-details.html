@@ -1,0 +1,17 @@
+<div id="videoModal" class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-content" th:attr="hx-get=${'/movies/' + region + '/' + movieId +'/_data'}" hx-trigger="load">
+    <div class="modal-body text-center py-2 my-5">
+      <p>Loading trailer...</p>
+      <div class="loader">
+        <div class="loaderBar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('.modal').on('hide.bs.modal', function() {
+        // Small trick to stop the YouTube video when the dialog is closed.
+        $(this).html("<br/>");
+    })
+</script>

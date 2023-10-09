@@ -1,0 +1,26 @@
+<div class="container-fluid p-0 my-4">
+  <div class="row" th:unless="${movies.isEmpty()}">
+    <div class="movie col-6 m-4" th:each="entry: ${movies}">
+      <div class="d-block movie-poster" role="button"
+           th:attr="hx-get=${'/movies/' + region + '/' + entry.id()}"
+           hx-target="#movie-details-box"
+           hx-trigger="click"
+           data-easein="fadeIn"
+           data-bs-toggle="modal"
+           data-bs-target="#movie-details-box">
+        <img class="img-fluid rounded-4 shadow-lg" th:alt="${'Movie poster: ' + entry.title()}"
+             th:src="${'/api/v1/posters/' + entry.id()}" width="500" height="750" loading="lazy"
+             onload="this.classList.add('loaded')"/>
+        <div class="my-2" style="justify-content: space-between; align-items: center;">
+          <h3 class="fs-5 m-0 truncate fw-bold text-truncate" th:text="${entry.title()}">Movie Title</h3>
+          <p class="date text-end" style="font-size: 80%; color: darkgray;" th:text="${entry.releaseDate()}">2000</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" th:if="${movies.isEmpty()}">
+    <div class="movie col m-4">
+      <p>Found no movies.</p>
+    </div>
+  </div>
+</div>

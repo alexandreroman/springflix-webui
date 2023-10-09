@@ -1,0 +1,44 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<body>
+<main layout:fragment="content">
+  <section id="intro" class="p-4 my-5 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-4">
+      <h1 class="display-5 fw-bold">Unlock the power of Java with Spring Boot!</h1>
+      <div class="mb-4 fs-6">
+        <div class="m-4">
+          <img src="/images/quote.svg" width="40" height="30" class="img-fluid"/>
+          <blockquote class="fs-5 blockquote d-inline-block m-1 fst-italic">
+            It's never been a better time to be a Java developer &mdash; Josh Long.
+          </blockquote>
+        </div>
+
+        <p>Spring Boot 3 brings a lot of new features to power up your applications:</p>
+        <ul>
+          <li>Java 17 baseline</li>
+          <li>GraalVM support: your apps have a smaller memory footprint and start faster</li>
+          <li>Improved observability with Micrometer including OpenTelemetry support</li>
+          <li>Testcontainers support</li>
+          <li>and more!</li>
+        </ul>
+      </div>
+      <a href="https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga" class="btn btn-primary btn-lg" type="button">
+        Check out Spring Boot 3 new features</a>
+    </div>
+  </section>
+
+  <section id="movies">
+    <div class="d-flex">
+      <h1 class="flex-grow-1">Upcoming movies</h1>
+      <form method="POST" th:action="@{/region}" class="text-secondary form-select-sm">
+        <label for="region">Region:</label>
+        <select id="region" name="region" onchange="this.form.submit()">
+          <option th:each="r: ${regions}" th:value="${r}" th:text="${r}" th:selected="${r.equals(region)}"></option>
+        </select>
+      </form>
+    </div>
+    <div th:replace="~{views/upcoming-movies.html}"></div>
+  </section>
+</main>
+</body>
+</html>

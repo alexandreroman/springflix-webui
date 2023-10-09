@@ -1,0 +1,16 @@
+<div class="modal-content">
+  <div class="modal-header p-2">
+    <h3 class="modal-title fs-6 text-secondary truncate text-truncate" th:text="${'🎬 ' + movie.title()}" th:if="${movie}"></h3>
+    <h3 class="modal-title fs-6 text-secondary truncate text-truncate" th:unless="${movie}">⚠️ Error</h3>
+  </div>
+  <div class="modal-body text-center ratio ratio-16x9" th:if="${movie != null && movie.trailerUri() != null}">
+    <iframe class="ratio ratio-16x9" id="video" width="100%" height="100%" th:src="${movie.trailerUri}"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+  </div>
+  <div class="modal-body text-center" th:if="${movie == null || movie.trailerUri() == null}">
+    <p class="m-2" style="font-size: 300%;">🚧</p>
+    <p class="">No trailer available 😥</p>
+  </div>
+</div>

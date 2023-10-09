@@ -1,0 +1,39 @@
+<div class="container-fluid p-0 my-4" th:attr="hx-get=${'/movies/' + region +'/_data'}" hx-trigger="load">
+  <div class="row">
+    <div class="movie col-6 m-4">
+      <div class="d-block movie-poster is-loading">
+        <img class="img-fluid rounded-4 shadow-lg" alt="Loading poster"
+             th:src="@{/images/empty.png}" width="500" height="750" loading="lazy"/>
+        <div class="my-2">
+          <h3></h3>
+          <p class="date"></p>
+        </div>
+      </div>
+    </div>
+    <div class="movie col-6 m-4">
+      <div class="d-block movie-poster is-loading">
+        <img class="img-fluid rounded-4 shadow-lg" alt="Loading poster"
+             th:src="@{/images/empty.png}" width="500" height="750" loading="lazy"/>
+        <div class="my-2">
+          <h3></h3>
+          <p class="date"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="powered-by">
+  <p>Powered by <a href="https://www.themoviedb.org" target="_">
+    <img th:src="@{/images/tmdb.svg}" alt="TMDB" width="152" height="20"/></a></p>
+</div>
+
+<div id="movie-details-box"
+     class="modal modal-blur fade"
+     style="display: none"
+     aria-hidden="false"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
