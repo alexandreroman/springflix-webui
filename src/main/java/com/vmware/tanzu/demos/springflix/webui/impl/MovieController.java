@@ -20,11 +20,10 @@ import com.vmware.tanzu.demos.springflix.webui.model.MovieService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -50,12 +49,17 @@ class MovieController {
     @GetMapping("/movies/{region}")
     String moviesFromRegion(@PathVariable("region") String region, HttpServletResponse resp) {
         if (!validRegions.contains(region)) {
-            throw new IllegalArgumentException("Invalid region: " + region);
+            throw new RegionNotFoundException(region);
         }
         final var cacheMinutes = 10;
         resp.setHeader(HttpHeaders.CACHE_CONTROL, CacheControl.maxAge(Duration.ofMinutes(cacheMinutes)).cachePublic().getHeaderValue());
         resp.setHeader(HttpHeaders.EXPIRES, DateTimeFormatter.RFC_1123_DATE_TIME.format(OffsetDateTime.now(ZoneOffset.UTC).plusMinutes(cacheMinutes)));
         return "movies";
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Invalid region")
+    @ExceptionHandler(RegionNotFoundException.class)
+    void onInvalidRegion() {
     }
 
     @GetMapping("/movies/{region}/_data")
@@ -72,5 +76,14 @@ class MovieController {
     @ModelAttribute("regions")
     List<String> regionsModel() {
         return validRegions;
+    }
+}
+
+class RegionNotFoundException extends RuntimeException {
+    final String region;
+
+    RegionNotFoundException(String region) {
+        super("Invalid region: " + region);
+        this.region = region;
     }
 }
