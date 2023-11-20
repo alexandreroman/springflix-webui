@@ -1,3 +1,7 @@
+app:
+  urls:
+    gateway: http://localhost:8080
+
 spring:
   application:
     name: springflix-webui
@@ -13,7 +17,7 @@ spring:
         simple:
           instances:
             springflix-gateway:
-            - uri: http://localhost:8080
+            - uri: ${app.urls.gateway}
   web:
     resources:
       cache:
