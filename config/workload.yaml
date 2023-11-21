@@ -39,11 +39,11 @@ spec:
   env:
   - name: SPRING_CONFIG_IMPORT
     value: optional:configtree:/${SERVICE_BINDING_ROOT}/config/
-  - name: APP_URLS_GATEWAY
+  - name: APP_SERVICES_GATEWAY
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.gateway
+        name: springflix-services
+        key: app.services.gateway
   serviceClaims:
   - name: config
     ref:

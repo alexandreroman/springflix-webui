@@ -1,5 +1,5 @@
 app:
-  urls:
+  services:
     gateway: http://localhost:8080
 
 spring:
@@ -17,7 +17,7 @@ spring:
         simple:
           instances:
             springflix-gateway:
-            - uri: ${app.urls.gateway}
+            - uri: ${app.services.gateway}
   web:
     resources:
       cache:

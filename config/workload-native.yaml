@@ -38,11 +38,11 @@ spec:
   env:
   - name: SPRING_CONFIG_IMPORT
     value: optional:configtree:/${SERVICE_BINDING_ROOT}/config/
-  - name: APP_URLS_GATEWAY
+  - name: APP_SERVICES_GATEWAY
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.gateway
+        name: springflix-services
+        key: app.services.gateway
   - name: MANAGEMENT_HEALTH_PROBES_ENABLED
     value: "true"
   - name: MANAGEMENT_ENDPOINT_HEALTH_PROBES_ADD_ADDITIONAL_PATHS
