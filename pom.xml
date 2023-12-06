@@ -55,11 +55,6 @@
             <artifactId>github-fork-ribbon-css</artifactId>
             <version>0.2.3</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.7.1</version>
-        </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
