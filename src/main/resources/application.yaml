@@ -31,7 +31,7 @@ server:
 management:
   observations:
     key-values: &tags
-      application: ${spring.application.name}
+      application: springflix
       service: ${spring.application.name}
       source: ${spring.application.name}-${random.uuid}
   metrics:
