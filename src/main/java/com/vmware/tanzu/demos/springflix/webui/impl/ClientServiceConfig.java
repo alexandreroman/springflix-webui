@@ -17,7 +17,7 @@
 package com.vmware.tanzu.demos.springflix.webui.impl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -28,15 +28,17 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration(proxyBeanMethods = false)
 class ClientServiceConfig {
     @Bean
+    @LoadBalanced
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+
+    @Bean
     RestClient restClient(RestClient.Builder rcb,
-                          @Value("${spring.application.name}") String appName,
-                          LoadBalancerInterceptor lbi) {
+                          @Value("${spring.application.name}") String appName) {
         return rcb.clone().defaultHeaders(headers -> {
-                    headers.set(HttpHeaders.USER_AGENT, appName);
-                })
-                // TODO Use @LoadBalanced to add Discovery Client support
-                .requestInterceptor(lbi)
-                .build();
+            headers.set(HttpHeaders.USER_AGENT, appName);
+        }).build();
     }
 
     @Bean
